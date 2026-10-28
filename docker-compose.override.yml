@@ -37,6 +37,24 @@ services:
       AC_PLAYERBOTS_MIN_RANDOM_BOTS: "2100" # Playerbots.MinRandomBots
       AC_PLAYERBOTS_MAX_RANDOM_BOTS: "2500" # Playerbots.MaxRandomBots
       AC_PLAYERBOTS_DISABLED_WITHOUT_REAL_PLAYER: "1" # Playerbots.DisabledWithoutRealPlayer (0 = randombots will login when server starts)
+      # Keep altbots in the party even when the master leaves
+# 0 = disabled (default behavior)
+# 1 = enabled (prevents bots from automatically leaving the group)
+Playerbots.KeepAltsInGroup = 0
+
+# Auto-login all player alts as altbots on player login
+Playerbots.BotAutologin = 0
+# Randombots will create guilds with nearby randombots
+# Note: currently, randombots will not invite more bots after a guild is created,
+# meaning randombot guilds will have only the 10 initial randombots needed to sign the charter
+# Default: 0 (disabled)
+Playerbots.RandomBotGuildNearby = 0
+
+# Number of guilds created by randombots
+Playerbots.RandomBotGuildCount = 20
+
+# Maximum number of members in randombot guilds (minimum is hardcoded to 10)
+Playerbots.RandomBotGuildSizeMax = 15
       # playerbots.gear
       AC_PLAYERBOTS_FREE_METHOD_LOOT: "1" # Playerbots.FreeMethodLoot (Bots keep looting when loot system is set to free for all)
       AC_PLAYERBOTS_LOOT_NEED_ROLL_LEVEL: "1" # Playerbots.LootNeedRollLevel (Bots' Roll level bots will use for items they Need (0 = pass, 1 = greed, 2 = need))
