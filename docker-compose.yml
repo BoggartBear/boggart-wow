@@ -1,0 +1,112 @@
+# docker-compose.yml for AzerothCore.
+#
+# Start the server with `docker compose up -d`
+#
+# Don't make changes this file! make a `docker-compose.override.yml` and make your
+# changes there instead.
+
+services:
+  ac-database:
+    container_name: ac-database
+    image: mysql:8.4
+    networks:
+      - ac-network
+    ports:
+      - ${DOCKER_DB_EXTERNAL_PORT:-3306}:3306
+    command: --skip-log-bin --innodb-buffer-pool-size=2G --innodb_io_capacity=500 --innodb_io_capacity_max=2500 --innodb_use_fdatasync=ON --innodb_buffer_pool_instances=12 --innodb_log_buffer_size=32M --binlog_expire_logs_seconds=432000 
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DOCKER_DB_ROOT_PASSWORD:-password}
+    volumes:
+      - ${DOCKER_VOL_DB:-ac-database}:/var/lib/mysql
+    restart: unless-stopped
+    healthcheck:
+      test: "/usr/bin/mysql --user=root --password=$$MYSQL_ROOT_PASSWORD --execute \"SHOW DATABASES;\""
+      interval: 5s
+      timeout: 10s
+      retries: 40
+
+  ac-db-import:
+    container_name: ac-db-import
+    image: boggartbear/ac-wotlk-db-import:0.3
+    networks:
+      - ac-network
+    environment:
+      AC_DATA_DIR: "/azerothcore/env/dist/data"
+      AC_LOGS_DIR: "/azerothcore/env/dist/logs"
+      AC_LOGIN_DATABASE_INFO: "ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD:-password};acore_auth"
+      AC_WORLD_DATABASE_INFO: "ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD:-password};acore_world"
+      AC_CHARACTER_DATABASE_INFO: "ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD:-password};acore_characters"
+    volumes:
+      - ac-config:/azerothcore/env/dist/etc
+      - ac-logs:/azerothcore/env/dist/logs
+    depends_on:
+      ac-database:
+        condition: service_healthy
+
+  ac-worldserver:
+    container_name: ac-worldserver
+    image: boggartbear/ac-wotlk-worldserver:0.3
+    networks:
+      - ac-network
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    environment:
+      AC_DATA_DIR: "/azerothcore/env/dist/data"
+      AC_LOGS_DIR: "/azerothcore/env/dist/logs"
+      AC_LOGIN_DATABASE_INFO: "ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD:-password};acore_auth"
+      AC_WORLD_DATABASE_INFO: "ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD:-password};acore_world"
+      AC_CHARACTER_DATABASE_INFO: "ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD:-password};acore_characters"
+      AC_PLAYERBOTS_DATABASE_INFO: "ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD:-password};acore_playerbots"
+    ports:
+      - ${DOCKER_WORLD_EXTERNAL_PORT:-8085}:8085
+      - ${DOCKER_SOAP_EXTERNAL_PORT:-7878}:7878
+    volumes:
+      - ac-config:/azerothcore/env/dist/etc
+      - ac-logs:/azerothcore/env/dist/logs
+      # client data
+      - ${DOCKER_VOL_DATA:-ac-client-data}:/azerothcore/env/dist/data/:ro
+    depends_on:
+      ac-database:
+        condition: service_healthy
+      ac-db-import:
+        condition: service_completed_successfully
+      ac-client-data-init:
+        condition: service_completed_successfully
+
+  ac-authserver:
+    container_name: ac-authserver
+    image: boggartbear/ac-wotlk-authserver:0.3
+    networks:
+      - ac-network
+    tty: true
+    restart: unless-stopped
+    environment:
+      AC_LOGS_DIR: "/azerothcore/env/dist/logs"
+      AC_TEMP_DIR: "/azerothcore/env/dist/temp"
+      AC_LOGIN_DATABASE_INFO: "ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD:-password};acore_auth"
+    volumes:
+      - ac-config:/azerothcore/env/dist/etc
+      - ac-logs:/azerothcore/env/dist/logs
+    ports:
+      - ${DOCKER_AUTH_EXTERNAL_PORT:-3724}:3724
+    depends_on:
+      ac-database:
+        condition: service_healthy
+      ac-db-import:
+        condition: service_completed_successfully
+
+  ac-client-data-init:
+    container_name: ac-client-data-init
+    image: boggartbear/ac-wotlk-client-data:0.3
+    volumes:
+      - ${DOCKER_VOL_DATA:-ac-client-data}:/azerothcore/env/dist/data
+
+volumes:
+  ac-database:
+  ac-client-data:
+  ac-config:
+  ac-logs:
+
+networks:
+  ac-network:

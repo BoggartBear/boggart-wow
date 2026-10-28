@@ -1,0 +1,98 @@
+services:
+  # I run on a system with an AMD Ryzen 5700X 8-Core Processor with 32G of RAM. 2 core are allocated to the DB and 4 to the world server, this leaves 2 cores for the OS and other processes.
+  ac-database:
+    cpus: 2.0
+    mem_limit: 8g
+  ac-worldserver:
+    cpus: 4.0
+    mem_limit: 16g
+    environment:
+      ### worldserver
+      # worldserver.maps
+      AC_MAP_UPDATE_THREADS: "6" # MapUpdate.Threads
+      # worldserver.character
+      AC_ENABLE_PLAYER_SETTINGS: "1" # EnablePlayerSettings
+      # worldserver.item
+      AC_DBC_ENFORCE_ITEM_ATTRIBUTES: "0" # DBC.EnforceItemAttributes
+      # worldserver.group
+      AC_LEAVE_GROUP_ON_LOGOUT_ENABLED: "1" # LeaveGroupOnLogout.Enabled
+      # worldserver.dynamic-respawn-settings
+      AC_RESPAWN_DYNAMIC_RATE_CREATURE: "1" # Respawn.DynamicRateCreature (0 = enabled; recommended during the first day of play)
+      # worldserver.server
+      AC_BIRTHDAY_TIME: "1792768320" # BirthdayTime
+      AC_PLAYER_LIMIT: "0" # PlayerLimit
+      AC_GAME_TYPE: "1" # GameType (0 = normal, 1 = pvp)
+      AC_MIN_WORLD_UPDATE_TIME: "1" # MinWorldUpdateTime (Minimum time (milliseconds) between world update ticks. Default is 1 - (0.001 second))
+      # worldserver.warden
+      AC_WARDEN_ENABLED: "1" # Warden.Enabled (could be disabled for solo play)
+      # worldserver.game-event
+      AC_EVENT_ANNOUNCE: "1" # Event.Announce
+      # worldserver.quest
+      AC_QUESTS_IGNORE_AUTO_ACCEPT: "1" # Quests.IgnoreAutoAccept - bots might not pickup quests in certain conditions
+
+
+      ### playerbots
+      # playerbots.general
+      AC_PLAYERBOTS_RANDOM_BOT_AUTOLOGIN: "1" # Playerbots.RandomBotAutologin (1 = bots enabled, 0 = bots disabled)
+      AC_PLAYERBOTS_MIN_RANDOM_BOTS: "2100" # Playerbots.MinRandomBots
+      AC_PLAYERBOTS_MAX_RANDOM_BOTS: "2500" # Playerbots.MaxRandomBots
+      AC_PLAYERBOTS_DISABLED_WITHOUT_REAL_PLAYER: "1" # Playerbots.DisabledWithoutRealPlayer (0 = randombots will login when server starts)
+      # playerbots.gear
+      AC_PLAYERBOTS_FREE_METHOD_LOOT: "1" # Playerbots.FreeMethodLoot (Bots keep looting when loot system is set to free for all)
+      AC_PLAYERBOTS_LOOT_NEED_ROLL_LEVEL: "1" # Playerbots.LootNeedRollLevel (Bots' Roll level bots will use for items they Need (0 = pass, 1 = greed, 2 = need))
+      AC_PLAYERBOTS_LOOT_GREED_ROLL_LEVEL: "1" # Playerbots.LootGreedRollLevel (Enable bots to roll GREED on items. If disabled, bots will PASS instead of GREED on all items. Default: 0 (disabled - bots only NEED or PASS))
+      # playerbots.randombot-specific-settings.general
+      AC_PLAYERBOTS_RANDOM_BOT_RANDOM_PASSWORD: "0" # Playerbots.RandomBotRandomPassword
+      AC_PLAYERBOTS_RANDOM_BOT_ALLIANCE_RATIO: "50" # Playerbots.RandomBotAllianceRatio
+      AC_PLAYERBOTS_RANDOM_BOT_HORDE_RATIO: "50" # Playerbots.RandomBotHordeRatio
+      AC_PLAYERBOTS_DISABLE_DEATH_KNIGHT_LOGIN: "1" # Playerbots.DisableDeathKnightLogin (set to 0 once you want to see bot dks)
+      # playerbots.randombot-specific-settings.levels
+      AC_PLAYERBOTS_DISABLE_RANDOM_LEVELS: "1" # Playerbots.DisableRandomLevels (forces all bots to be generated at level 1)
+      # playerbots.randombot-specific-settings.gear
+      AC_PLAYERBOTS_AUTO_UPGRADE_EQUIP: "1" # Playerbots.AutoUpgradeEquip (Randombots automatically receive upgraded equipment on levelup)
+      AC_PLAYERBOTS_RANDOM_GEAR_QUALITY_LIMIT: "2" # Playerbots.RandomGearQualityLimit (Equipment quality limitation for randombots: 1 = normal, 2 = uncommon, 3 = rare, 4 = epic, 5 = legendary)
+      AC_PLAYERBOTS_RANDOM_GEAR_SCORE_LIMIT: "63" # Playerbots.RandomGearScoreLimit (see the ilvl chart in the ah-bot section)
+      AC_PLAYERBOTS_PREFER_CLASS_ARMOR_TYPE: "1" # Playerbots.PreferClassArmorType
+      AC_PLAYERBOTS_PREFERRED_SPEC_WEAPONS: "0" # Playerbots.PreferredSpecWeapons
+      AC_PLAYERBOTS_RANDOM_GEAR_LOWERING_CHANCE: "90" # Playerbots.RandomGearLoweringChance (Chance randombot will have less-than-optimized generated gear: Set between 0 and 100 percent)
+      AC_PLAYERBOTS_GEAR_SCORE_CHECK: "1" # Playerbots.GearScoreCheck (Randombots check player's gearscore level and deny the group invitation if it's too low)
+      # playerbots.randombot-specific-settings.activity
+      AC_PLAYERBOTS_BOT_ACTIVE_ALONE: "50" # Playerbots.BotActiveAlone (default:10 - approximate percentage of the bots will be active when no players are nearby - lower for better performance)
+      AC_PLAYERBOTS_BOT_ACTIVE_ALONE_DURATION_SECONDS: "60" # Playerbots.BotActiveAloneDurationSeconds
+      AC_PLAYERBOTS_BOT_ACTIVE_ALONE_FORCE_WHEN_IN_RADIUS: "150" # Playerbots.BotActiveAloneForceWhenInRadius
+      AC_PLAYERBOTS_BOT_ACTIVE_ALONE_FORCE_WHEN_IN_ZONE: "1" # Playerbots.BotActiveAloneForceWhenInZone
+      AC_PLAYERBOTS_BOT_ACTIVE_ALONE_FORCE_WHEN_IN_MAP: "0" # Playerbots.BotActiveAloneForceWhenInMap
+      AC_PLAYERBOTS_BOT_ACTIVE_ALONE_FORCE_WHEN_IS_FRIEND: "1" # Playerbots.BotActiveAloneForceWhenIsFriend
+      AC_PLAYERBOTS_BOT_ACTIVE_ALONE_FORCE_WHEN_IN_GUILD: "1" # Playerbots.BotActiveAloneForceWhenInGuild
+
+
+      ### individual progression
+      AC_INDIVIDUAL_PROGRESSION_PROGRESSION_LIMIT: "1" # IndividualProgression.ProgressionLimit (0 = no limit, for 1-17 refer to the chart in the readme)
+      AC_INDIVIDUAL_PROGRESSION_VANILLA_POWER_ADJUSTMENT: "0.5" # IndividualProgression.VanillaPowerAdjustment
+      AC_INDIVIDUAL_PROGRESSION_VANILLA_HEALING_ADJUSTMENT: "0.5" # IndividualProgression.VanillaHealingAdjustment
+      AC_INDIVIDUAL_PROGRESSION_TBCPOWER_ADJUSTMENT: "0.5" # IndividualProgression.TBCPowerAdjustment
+      AC_INDIVIDUAL_PROGRESSION_TBCHEALING_ADJUSTMENT: "0.5" # IndividualProgression.TBCHealingAdjustment
+
+
+      ### ah-bot-plus
+      AC_AUCTION_HOUSE_BOT_GUIDS: "0" # AuctionHouseBot.GUIDs (populate after creating the AH character(s) e.g "2001,2002")
+      AC_AUCTION_HOUSE_BOT_ENABLE_SELLER: "false" # AuctionHouseBot.EnableSeller (set true after creating the AH character)
+      AC_AUCTION_HOUSE_BOT_BUYER_ENABLED: "false" # AuctionHouseBot.Buyer.Enabled (set true after creating the AH character)    
+      AC_AUCTION_HOUSE_BOT_MINUTES_BETWEEN_BUY_CYCLE: "5" # AuctionHouseBot.MinutesBetweenBuyCycle
+      AC_AUCTION_HOUSE_BOT_MINUTES_BETWEEN_SELL_CYCLE: "5" # AuctionHouseBot.MinutesBetweenSellCycle
+
+      # Restrict the items that the ah bot lists on the AH by level and ilvl. Increase later as you level for a more natural progression. Refer to the chart in the readme for some guidance.
+      # Equipment item level (ilvl)
+      # Classic
+      # Max iLVL Pre-Raid = 57-63 | Tier 1 = 66 | Tier 2 = 76 | Tier 2.5 = 88 | Tier 3 = 92
+      # Max iLVL Phase 1(MC, Ony, ZG) = 78 | Phase 2(BWL) = 83 | Phase 2.5(AQ40) = 88 | Phase 3(Naxx40) = 92
+      # TBC
+      # Max iLVL Tier 4 = 120 | Tier 5 = 133 | Tier 6 = 164
+      # Max iLVL Phase 1(Kara, Gruul, Mag) = 125 | Phase 2(SSC, TK, ZA) = 141 | Phase 3(Hyjal, BT) = 156 | Phase 4(Sunwell) = 164
+      # WotLK
+      # Max iLVL Tier 7(10/25) = 200/213 | Tier 8(10/25) = 225/232 | Tier 9(10/25) = 232/245 | Tier 10(10/25/HC) = 251/264/290
+      # Max iLVL Phase 1(Naxx) = 224 | Phase 2(Ulduar) = 245 | Phase 3(ToC) = 258 | Phase 4(ICC) = 290
+      AC_AUCTION_HOUSE_BOT_LISTED_ITEM_LEVEL_RESTRICT_ENABLED: "true" # AuctionHouseBot.ListedItemLevelRestrict.Enabled
+      AC_AUCTION_HOUSE_BOT_LISTED_ITEM_LEVEL_RESTRICT_MAX_ITEM_LEVEL: "32" # AuctionHouseBot.ListedItemLevelRestrict.MaxItemLevel (ah-bot has no progression integration so we have to cap ilvl manually)
+      AC_AUCTION_HOUSE_BOT_EQUIP_ITEM_USE_OR_EQUIP_LEVEL_RESTRICT_ENABLED: "true" # AuctionHouseBot.EquipItemUseOrEquipLevelRestrict.Enabled
+      AC_AUCTION_HOUSE_BOT_EQUIP_ITEM_USE_OR_EQUIP_LEVEL_RESTRICT_MAX_LEVEL: "30" # AuctionHouseBot.EquipItemUseOrEquipLevelRestrict.MaxLevel (ah-bot has no progression integration so we have to cap lvl manually)
