@@ -16,8 +16,6 @@ services:
       AC_DBC_ENFORCE_ITEM_ATTRIBUTES: "0" # DBC.EnforceItemAttributes
       # worldserver.group
       AC_LEAVE_GROUP_ON_LOGOUT_ENABLED: "1" # LeaveGroupOnLogout.Enabled
-      # worldserver.dynamic-respawn-settings
-      AC_RESPAWN_DYNAMIC_RATE_CREATURE: "1" # Respawn.DynamicRateCreature (0 = enabled; recommended during the first day of play)
       # worldserver.server
       AC_BIRTHDAY_TIME: "1792768320" # BirthdayTime
       AC_PLAYER_LIMIT: "0" # PlayerLimit
@@ -29,6 +27,11 @@ services:
       AC_EVENT_ANNOUNCE: "1" # Event.Announce
       # worldserver.quest
       AC_QUESTS_IGNORE_AUTO_ACCEPT: "1" # Quests.IgnoreAutoAccept - bots might not pickup quests in certain conditions
+      # worldserver.dynamic-respawn-settings
+      AC_RESPAWN_DYNAMIC_RATE_CREATURE: "0" # Respawn.DynamicRateCreature (0 = enabled; RespawnTime = RespawnTime * (rate / playerCount))
+      AC_RESPAWN_DYNAMIC_MINIMUM_CREATURE: "30" # Respawn.DynamicMinimumCreature (The minimum respawn time for a creature under dynamic scaling in seconds)
+      AC_RESPAWN_DYNAMIC_RATE_GAME_OBJECT: "0" # Respawn.DynamicRateGameObject (0 = enabled; RespawnTime = RespawnTime * (rate / playerCount))
+      AC_RESPAWN_DYNAMIC_MINIMUM_GAME_OBJECT: "30" # Respawn.DynamicMinimumGameObject (The minimum respawn time for a game object under dynamic scaling in seconds)
 
 
       ### playerbots
