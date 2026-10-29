@@ -120,7 +120,7 @@ services:
       #           1.875 = 1 Game Day every 768  minutes or 12.8 Hours
       #           1.0   = 1 Game Day every 1440 minutes or 24.0 Hours 
       # Default:  1.0 (Blizzlike)
-      AC_TIME_IS_TIME_SPEED_RATE: "3.75" # TimeIsTime.SpeedRate
+      AC_TIME_IS_TIME_SPEED_RATE: "7.5" # TimeIsTime.SpeedRate
 
 
       ### junk-to-gold-plus
