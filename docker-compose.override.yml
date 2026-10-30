@@ -37,8 +37,8 @@ services:
       ### playerbots
       # playerbots.general
       AC_PLAYERBOTS_RANDOM_BOT_AUTOLOGIN: "1" # Playerbots.RandomBotAutologin (1 = bots enabled, 0 = bots disabled)
-      AC_PLAYERBOTS_MIN_RANDOM_BOTS: "2200" # Playerbots.MinRandomBots
-      AC_PLAYERBOTS_MAX_RANDOM_BOTS: "2500" # Playerbots.MaxRandomBots
+      AC_PLAYERBOTS_MIN_RANDOM_BOTS: "2500" # Playerbots.MinRandomBots (worth gradually increasing this number to see how many bots your server can handle and reduce load in early zones, adjusting AC_PLAYERBOTS_BOT_ACTIVE_ALONE could help too)
+      AC_PLAYERBOTS_MAX_RANDOM_BOTS: "3500" # Playerbots.MaxRandomBots (3500 is the vanilla realm size)
       AC_PLAYERBOTS_DISABLED_WITHOUT_REAL_PLAYER: "1" # Playerbots.DisabledWithoutRealPlayer (0 = randombots will login when server starts)
       AC_PLAYERBOTS_KEEP_ALTS_IN_GROUP: "0" # Playerbots.KeepAltsInGroup (Keep altbots in the party even when the master leaves)
       AC_PLAYERBOTS_BOT_AUTOLOGIN: "0" # Playerbots.BotAutologin (Auto-login all player alts as altbots on player login)
@@ -51,6 +51,8 @@ services:
       AC_PLAYERBOTS_LOOT_GREED_ROLL_LEVEL: "1" # Playerbots.LootGreedRollLevel (Enable bots to roll GREED on items. If disabled, bots will PASS instead of GREED on all items. Default: 0 (disabled - bots only NEED or PASS))
       # playerbots.randombot-specific-settings.general
       AC_PLAYERBOTS_RANDOM_BOT_RANDOM_PASSWORD: "0" # Playerbots.RandomBotRandomPassword
+      AC_PLAYERBOTS_ENABLE_PERIODIC_ONLINE_OFFLINE: "1" # Playerbots.EnablePeriodicOnlineOffline (when enabled, randombots will randomly go offline and online to simulate real players)
+      AC_PLAYERBOTS_PERIODIC_ONLINE_OFFLINE_RATIO: "2.0" # Playerbots.PeriodicOnlineOfflineRatio (Defines the ratio between the total number of randombots (including offline ones) and the number of randombots currently online)
       AC_PLAYERBOTS_RANDOM_BOT_ALLIANCE_RATIO: "50" # Playerbots.RandomBotAllianceRatio
       AC_PLAYERBOTS_RANDOM_BOT_HORDE_RATIO: "50" # Playerbots.RandomBotHordeRatio
       AC_PLAYERBOTS_DISABLE_DEATH_KNIGHT_LOGIN: "1" # Playerbots.DisableDeathKnightLogin (set to 0 once you want to see bot dks)
@@ -72,6 +74,9 @@ services:
       AC_PLAYERBOTS_BOT_ACTIVE_ALONE_FORCE_WHEN_IN_MAP: "0" # Playerbots.BotActiveAloneForceWhenInMap
       AC_PLAYERBOTS_BOT_ACTIVE_ALONE_FORCE_WHEN_IS_FRIEND: "1" # Playerbots.BotActiveAloneForceWhenIsFriend
       AC_PLAYERBOTS_BOT_ACTIVE_ALONE_FORCE_WHEN_IN_GUILD: "1" # Playerbots.BotActiveAloneForceWhenInGuild
+      # playerbots.randombot-specific-settings.timing-behaviour
+      AC_PLAYERBOTS_MIN_RANDOM_BOT_IN_WORLD_TIME: "1200" # Playerbots.MinRandomBotInWorldTime (Minimum and maximum seconds a randombot will stay online before logging out)
+      AC_PLAYERBOTS_MAX_RANDOM_BOT_IN_WORLD_TIME: "28800" # Playerbots.MaxRandomBotInWorldTime
 
 
       ### individual progression
