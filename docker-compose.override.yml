@@ -59,7 +59,7 @@ services:
       # playerbots.randombot-specific-settings.levels
       AC_PLAYERBOTS_DISABLE_RANDOM_LEVELS: "1" # Playerbots.DisableRandomLevels (forces all bots to be generated at level 1)
       # playerbots.randombot-specific-settings.gear
-      AC_PLAYERBOTS_AUTO_UPGRADE_EQUIP: "1" # Playerbots.AutoUpgradeEquip (Randombots automatically receive upgraded equipment on levelup)
+      AC_PLAYERBOTS_AUTO_UPGRADE_EQUIP: "0" # Playerbots.AutoUpgradeEquip (Randombots automatically receive upgraded equipment on levelup - if disabled, bots should go to vendors or the AH to upgrade their gear)
       AC_PLAYERBOTS_RANDOM_GEAR_QUALITY_LIMIT: "2" # Playerbots.RandomGearQualityLimit (Equipment quality limitation for randombots: 1 = normal, 2 = uncommon, 3 = rare, 4 = epic, 5 = legendary)
       AC_PLAYERBOTS_RANDOM_GEAR_SCORE_LIMIT: "63" # Playerbots.RandomGearScoreLimit (see the ilvl chart in the ah-bot section)
       AC_PLAYERBOTS_PREFER_CLASS_ARMOR_TYPE: "1" # Playerbots.PreferClassArmorType
