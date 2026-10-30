@@ -67,7 +67,7 @@ services:
       AC_PLAYERBOTS_RANDOM_GEAR_LOWERING_CHANCE: "90" # Playerbots.RandomGearLoweringChance (Chance randombot will have less-than-optimized generated gear: Set between 0 and 100 percent)
       AC_PLAYERBOTS_GEAR_SCORE_CHECK: "1" # Playerbots.GearScoreCheck (Randombots check player's gearscore level and deny the group invitation if it's too low)
       # playerbots.randombot-specific-settings.activity
-      AC_PLAYERBOTS_BOT_ACTIVE_ALONE: "50" # Playerbots.BotActiveAlone (default:10 - approximate percentage of the bots will be active when no players are nearby - lower for better performance)
+      AC_PLAYERBOTS_BOT_ACTIVE_ALONE: "100" # Playerbots.BotActiveAlone (default:10 - approximate percentage of the bots will be active when no players are nearby - lower for better performance)
       AC_PLAYERBOTS_BOT_ACTIVE_ALONE_DURATION_SECONDS: "60" # Playerbots.BotActiveAloneDurationSeconds
       AC_PLAYERBOTS_BOT_ACTIVE_ALONE_FORCE_WHEN_IN_RADIUS: "150" # Playerbots.BotActiveAloneForceWhenInRadius
       AC_PLAYERBOTS_BOT_ACTIVE_ALONE_FORCE_WHEN_IN_ZONE: "1" # Playerbots.BotActiveAloneForceWhenInZone
